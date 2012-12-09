@@ -1,0 +1,9 @@
+[submodule "lib/Burger"]
+	path = lib/Burger
+	url = git://github.com/mcdevs/Burger.git
+[submodule "lib/Hamburglar"]
+	path = lib/Hamburglar
+	url = git://github.com/sadimusi/Hamburglar.git
+[submodule "lib/BurgerVitrine"]
+	path = lib/BurgerVitrine
+	url = git://github.com/sadimusi/BurgerVitrine.git
