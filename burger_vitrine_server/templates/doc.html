@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block title %}API Documentation{% endblock %}
+{% block body %}
+<h2>Resources</h2>
+<div class="entry">
+    <h3><span class="url">/json/<span class="var">versions</span></span></h3>
+    <p>Burger or Hamburglar output in JSON format</p>
+</div>
+<div class="entry">
+    <h3><span class="url">/html/<span class="var">versions</span></span></h3>
+    <p>Burger or Hamburglar output in HTML format</p>
+</div>
+<div class="entry">
+    <h3><span class="url">/items/<span class="var">version</span></span></h3>
+    <p>Resized version of items.png for specific version</p>
+</div>
+<div class="entry">
+    <h3><span class="url">/terrain/<span class="var">version</span></span></h3>
+    <p>Resized version of terrain.png for specific version</p>
+</div>
+<div class="entry">
+    <h3>/list</h3>
+    <p>List of available versions in JSON format</p>
+</div>
+<h2>Versions</h2>
+<div class="entry">
+    <h3>Direct addressing</h3>
+    <p>In the simplest scenario a resource is addressed by a single version as they appear on <span class="url">/list</span></p>
+    <p>Examples:</p>
+    <ul>
+        <li>1.2.3</li>
+        <li>b1.2</li>
+    </ul>
+</div>
+<div class="entry">
+    <h3>Relative addressing</h3>
+    <p>Versions can also be addressed by type and relative position with git-like expressions</p>
+    <p>Examples:</p>
+    <ul>
+        <li>1.2.3</li>
+        <li>latest</li>
+        <li>release</li>
+        <li>snapshot~3</li>
+        <li>prerelease^</li>
+    </ul>
+</div>
+<div class="entry">
+    <h3>Version Diff</h3>
+    <p>Resources addressed with the <span class="var">versions</span> keyword accept a single <span class="var">version</span> or two of them joined by three periods (using an ellipsis character results in a redirect).</p>
+    <p>Examples:</p>
+    <ul>
+        <li>1.2.3...1.4.5</li>
+        <li>latest^...latest</li>
+    </ul>
+</div>
+<h2>Notes</h2>
+<div class="entry">
+    <h3>Alternative JSON addresses</h3>
+    JSON resources are also available on <span class="url">/<span class="var">versions</span>.json</span> or by sending an application/json accept header to <span class="url">/<span class="var">versions</span></span>
+</div>
+{% endblock %}

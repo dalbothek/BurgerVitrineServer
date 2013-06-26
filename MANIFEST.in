@@ -1,0 +1,3 @@
+recursive-include burger_vitrine_server/static *
+recursive-include burger_vitrine_server/templates *
+recursive-include burger_vitrine_server/lib *

@@ -7,8 +7,4 @@ To Public License, Version 2, as published by Sam Hocevar. See
 http://sam.zoy.org/wtfpl/COPYING for more details.
 """
 
-import burger_vitrine_server.server as server
-
-
-if __name__ == "__main__":
-    server.app.run(host="", port=8080, debug=True)
+ASSETS_DEBUG = False

@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% set show_title = False %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block header %}
+    <div class="topmenu">
+        <a href="#blocks">Blocks</a>
+        <a href="#items">Items</a>
+        <a href="#recipes">Recipes</a>
+        <a href="#entities">Entities</a>
+        <a href="#objects">Objects</a>
+        <a href="#packets">Packets</a>
+        <a href="#versions">Versions</a>
+        <a href="#stats">Stats</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#biomes">Biomes</a>
+    </div>
+{% endblock %}
+
+{% block style %}
+    .texture {
+        background-image: url({{ url_for('resource_direct', resource_type='blocks', resource=g.left) }});
+    }
+
+    .item {
+        background-image: url({{ url_for('resource_direct', resource_type='items', resource=g.left) }});
+    }
+
+    {% if g.right != None %}
+        .right .texture {
+            background-image: url({{ url_for('resource_direct', resource_type='blocks', resource=g.right) }});
+        }
+
+        .right .item {
+            background-image: url({{ url_for('resource_direct', resource_type='items', resource=g.right) }});
+        }
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {{ body|safe }}
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Burger Vitrine{% if self.title() != "" %} - {% endif %}{% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+        {% assets filters="cssrewrite,cssmin", output="style.css", "style.css", "local.css" -%}
+            <link rel="stylesheet" href="{{ ASSET_URL }}" />
+        {% endassets -%}
+        {% if self.style() != "" -%}
+            <style>
+                {% block style %}{% endblock %}
+            </style>
+        {%- endif %}
+    </head>
+    <body>
+        <div id="header">
+            <a href="/"><h1>
+                {%- set show_title = show_title|default(True) -%}
+                {%- if self.title() == "" or not show_title -%}
+                    Burger Vitrine
+                {%- else -%}
+                    {{ self.title() }}
+                {%- endif -%}
+            </h1></a>
+            <div class="topmenu">
+                {% macro version_selection(versions, selcection=None) -%}
+                    <div class="select">
+                        <select>
+                            <option value="None">None</option>
+                            {% for version, _ in versions -%}
+                                <option value="{{ version }}"
+                                    {%- if version == selcection %} selected{% endif -%}
+                                >{{ version }}</option>
+                            {% endfor %}
+                        </select>
+                        <span>{{ selcection }}</span>
+                    </div>
+                {%- endmacro -%}
+                {{ version_selection(g.versions, g.left) }}
+                {{ version_selection(g.versions, g.right) }}
+            </div>
+            {% block header %}{% endblock %}
+        </div>
+        <div id="vitrine">
+            {% block body %}{% endblock %}
+        </div>
+        <footer>
+            <a href="https://github.com/sadimusi/BurgerVitrineServer">GitHub</a>
+            <a href="/doc">API</a>
+            <a href="/about">About</a>
+        </footer>
+        <script>
+            (function() {
+                var scripts = [
+                {%- assets filters="closure_js", output="script.js", "jquery.js", "vitrine.js", "local.js" -%}
+                    '{{ ASSET_URL }}',
+                {%- endassets -%}
+                ];
+                for (var i in scripts) {
+                    var script = document.createElement('script');
+                    if (scripts.count <= 1) {
+                        script.async = true;
+                    }
+                    script.src = scripts[i];
+                    document.getElementsByTagName("BODY")[0].appendChild(script);
+                }
+            })()
+        </script>
+    </body>
+</html>
