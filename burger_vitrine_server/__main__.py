@@ -11,4 +11,4 @@ import burger_vitrine_server.server as server
 
 
 if __name__ == "__main__":
-    server.app.run(host="", port=8080, debug=True)
+    server.app().run(host="", port=8080, debug=True)

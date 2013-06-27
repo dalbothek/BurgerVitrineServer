@@ -15,8 +15,6 @@ import subprocess
 
 import flask
 
-import burger_vitrine_server
-
 
 class Resource(object):
     PATH = None
@@ -242,7 +240,7 @@ class ItemsResource(Resource):
 def execute_bundled_script(script_path, args, stdin=None):
     script = pkg_resources.resource_filename(__name__,
                                              path.join("lib", *script_path))
-    python = burger_vitrine_server.app.config.get("PYTHON", "/usr/bin/python")
+    python = flask.current_app.config.get("PYTHON", "/usr/bin/python")
     try:
         return subprocess.check_output((python, script) + args,
                                        stdin=stdin)
@@ -251,4 +249,4 @@ def execute_bundled_script(script_path, args, stdin=None):
 
 
 def resources_path():
-    return burger_vitrine_server.app.resources_path
+    return flask.current_app.resources_path
