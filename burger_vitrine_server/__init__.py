@@ -7,4 +7,8 @@ To Public License, Version 2, as published by Sam Hocevar. See
 http://sam.zoy.org/wtfpl/COPYING for more details.
 """
 
+from burger_vitrine_server import server
+
+
 __version__ = "0.1"
+app = server.app

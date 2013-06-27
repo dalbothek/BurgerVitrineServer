@@ -8,3 +8,4 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 """
 
 ASSETS_DEBUG = False
+PYTHON = "/usr/bin/python"

@@ -15,16 +15,7 @@ import subprocess
 
 import flask
 
-
-BASE_PATH = "."
-
-
-def set_base_path(base_path):
-    global BASE_PATH
-
-    if not path.exists(base_path):
-        raise IOError("No such file or directory: %s" % base_path)
-    BASE_PATH = base_path
+import burger_vitrine_server
 
 
 class Resource(object):
@@ -38,7 +29,7 @@ class Resource(object):
     def path(self):
         filename = (self.name if self.SUFIX is None else
                     "%s.%s" % (self.name, self.SUFIX))
-        return path.join(BASE_PATH, self.PATH, filename)
+        return path.join(resources_path(), self.PATH, filename)
 
     def handle_keywords(self, name):
         """Allows git-like relative resource addresses
@@ -62,7 +53,7 @@ class Resource(object):
 
     @classmethod
     def dir(cls):
-        return path.join(BASE_PATH, cls.PATH)
+        return path.join(resources_path(), cls.PATH)
 
     def exists(self):
         return path.exists(self.path())
@@ -251,8 +242,13 @@ class ItemsResource(Resource):
 def execute_bundled_script(script_path, args, stdin=None):
     script = pkg_resources.resource_filename(__name__,
                                              path.join("lib", *script_path))
+    python = burger_vitrine_server.app.config.get("PYTHON", "/usr/bin/python")
     try:
-        return subprocess.check_output(("/usr/bin/python", script) + args,
+        return subprocess.check_output((python, script) + args,
                                        stdin=stdin)
     except subprocess.CalledProcessError as e:
         raise GenerationException(e.output.strip())
+
+
+def resources_path():
+    return burger_vitrine_server.app.resources_path
