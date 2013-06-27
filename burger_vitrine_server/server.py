@@ -9,6 +9,7 @@ http://sam.zoy.org/wtfpl/COPYING for more details.
 
 import os
 import os.path as path
+import logging
 
 import flask
 import flask.ext.assets as assets
@@ -66,6 +67,12 @@ def app(instance_path=None):
     env.append_path(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                  "static"), "/static")
     env.append_path(vitrine_path, "/vitrine")
+
+    # Logging
+    file_handler = logging.FileHandler(os.path.join(app.instance_path,
+                                                    "burger.log"))
+    file_handler.setLevel(app.config.get("LOG_LEVEL", logging.DEBUG))
+    app.logger.addHandler(file_handler)
 
     @app.before_request
     def setup():
